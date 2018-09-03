@@ -21,9 +21,7 @@
   # If you enter ONLY IP ADDRESS: 
     # The function returns a 1 if the IP address is from a suspicious ISP, and a 0 if it is not. 
 
-
-
-flag.suspects <- function(Latitude, Longitude, IP){
+flag.suspects <- function(Latitude, Longitude, IP, Octets = TRUE){
   
   # Makes sure that necessary packages are installed and loaded
   ifelse(!"ipapi" %in% installed.packages(), devtools::install_github("hrbrmstr/ipapi"), library(ipapi))
@@ -32,7 +30,7 @@ flag.suspects <- function(Latitude, Longitude, IP){
   ifelse(!"package:ipapi" %in% search(), library(ipapi), NA) # Only necessary if you're installing ipapi for the first time. 
   
   # Reading in list of suspicious locations
-  urlfile<-'https://raw.githubusercontent.com/jprims/flag.suspects/master/suspiciousthings.csv'
+  urlfile <- 'https://raw.githubusercontent.com/jprims/flag.suspects/master/suspiciousthings.csv'
   datsus<-read.csv(urlfile)
   
   if(missing(Latitude)) {
@@ -52,7 +50,7 @@ flag.suspects <- function(Latitude, Longitude, IP){
     badgps <- ifelse(!is.na(Latitude), paste(datsus$badlat, datsus$badlong), NA)
     
     # This checks if the coordinates are duplicated. If so, it adds a point. 
-    bot.susp <- ifelse(!is.na(latlong), ifelse(latlong %in% badgps, bot.susp + 1,  bot.susp), bot.susp)
+    bot.susp <- ifelse(!is.na(latlong), ifelse(latlong %in% badgps, bot.susp + 1,  bot.susp), bot.susp) 
     
   }
   
@@ -66,6 +64,13 @@ flag.suspects <- function(Latitude, Longitude, IP){
       bot.susp <- bot.susp <- rep(0, length(IP))
     } else {
       NULL
+    }
+    
+    # First, we need to deal with octets. 
+    if(Octets == FALSE) {
+      NULL
+    } else {
+      IP <- sub("\\.+$",".120",IP)
     }
     
     # First, we create a list of suspicious VSPs. 
@@ -87,7 +92,7 @@ flag.suspects <- function(Latitude, Longitude, IP){
     locations$isp <- gsub("[[:punct:]]", "", locations$isp)
     
     # Now, returning 1 or 0. 
-    bot.susp <- ifelse(!is.na(locations$isp), ifelse(locations$isp %in% vsps, bot.susp + 1,  bot.susp), bot.susp)
+    bot.susp <- ifelse(!is.na(locations$isp), ifelse(pmatch(locations$isp, vsps, nomatch = 0, duplicates.ok = TRUE) > 0, bot.susp + 1,  bot.susp), bot.susp)
   } 
   
   # this sets the threshold for a bot warning, depending if they entered the IP argument or not. 
