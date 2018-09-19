@@ -1,23 +1,27 @@
-badlat,badlong,badisp
-42.88639832,-78.87809753,Airtek Solutions C.A.
-34.0493927,-118.2640991,B2 Net Solutions
-30.26780701,-97.74259949,Cogent Communications
-32.96029663,-96.83000183,ColoCrossing
-40.83259583,-74.13069916,Corporate Colocation
-37.35009766,-121.9853973,Cotina
-39.09970093,-94.57859802,Digital Ocean
-34.05439758,-118.2440033,Hostwinds
-47.48910522,-122.290802,Joe's Datacenter
-33.02000427,-96.74189758,Kamatera
-37.75100708,-97.8219986,Kvchosting.com LLC
-34.02909851,-118.3992996,Leaseweb USA
-40.73080444,-73.99749756,Linode
-42.28329468,-87.96060181,"Micfo, LLC."
-37.42500305,-121.9459991,Nobis Technology Group
-37.63929749,-122.0442047,PODOJIL CONTRACTING 
-38.93760681,-77.09279633,QuadraNet
-47.60620117,-122.3320999,Secured Servers
-,,SoftLayer Technologies
-,,Total Server Solutions
-,,tzulo
-,,Zscaler
+badlat,badlong,badisp,badas
+42.88639832,-78.87809753,Airtek Solutions C.A.,"AS265671 PODOJIL CONTRACTING, S.A."
+34.0493927,-118.2640991,B2 Net Solutions,"AS11878 tzulo, inc."
+30.26780701,-97.74259949,Cogent Communications,AS20264 Webair Internet Development Company Inc.
+32.96029663,-96.83000183,ColoCrossing,"AS46261 QuickPacket, LLC"
+40.83259583,-74.13069916,Corporate Colocation,"AS19148 Leaseweb USA, Inc."
+37.35009766,-121.9853973,Cotina,AS63008 Contina
+39.09970093,-94.57859802,Digital Ocean,"AS53889 Micfo, LLC."
+34.05439758,-118.2440033,Hostwinds,AS17139 Corporate Colocation Inc.
+47.48910522,-122.290802,Joe's Datacenter,AS54540 Incero LLC
+33.02000427,-96.74189758,Kamatera,"AS13730 Velocity Online, Inc."
+37.75100708,-97.8219986,Kvchosting.com LLC,AS395111 KVCHOSTING.COM LLC
+34.02909851,-118.3992996,Leaseweb USA,"AS19969 Joe's Datacenter, LLC"
+40.73080444,-73.99749756,Linode,"AS36007 Kamatera, Inc."
+42.28329468,-87.96060181,"Micfo, LLC.",AS36352 ColoCrossing
+37.42500305,-121.9459991,Nobis Technology Group,AS55286 B2 Net Solutions Inc.
+37.63929749,-122.0442047,PODOJIL CONTRACTING ,AS174 Cogent Communications
+38.93760681,-77.09279633,QuadraNet,"AS15003 Nobis Technology Group, LLC"
+47.60620117,-122.3320999,Secured Servers,AS54290 Hostwinds LLC.
+,,SoftLayer Technologies,AS61461 Airtek Solutions C.A.
+,,Total Server Solutions,"AS8100 QuadraNet, Inc"
+,,tzulo,AS6939 Hurricane Electric LLC
+,,Zscaler,"AS30633 Leaseweb USA, Inc."
+,,,AS20454 SECURED SERVERS LLC
+,,,"AS63949 Linode, LLC"
+,,,AS46562 Total Server Solutions L.L.C.
+,,,"AS14061 DigitalOcean, LLC"
