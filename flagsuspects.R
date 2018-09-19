@@ -73,33 +73,31 @@ flag.suspects <- function(Latitude, Longitude, IP, Octets = TRUE){
       IP <- sub("\\.+$",".120",IP)
     }
     
-    # First, we create a list of suspicious VSPs. 
-    # vsps <- c("B2 Net Solutions Inc.", "Cogent Communications", "ColoCrossing","Corporate Colocation Inc.",
-    #           "Hostwinds LLC.", "Joe's Datacenter LLC", "Kamatera Inc.", "DigitalOcean LLC", "SECURED SERVERS LLC", "NA", 
-    #           "Leaseweb USA Inc.", "QuadraNet Inc", "Total Server Solutions L.L.C.", "ZSCALER INC.", "SoftLayer Technologies Inc.",
-    #           "PODOJIL CONTRACTING  S.A.", "Nobis Technology Group  LLC", "Linode, LLC", "KVCHOSTING.COM LLC",
-    #           "tzulo  inc.", "Micfo  LLC.", "Airtek Solutions C.A.", "Contina")
-    # 
+    
     # I'd like to remove punctuation, and make all of the suspicious ISPs lowercase, just to make matches easier.
-    vsps <- tolower(datsus$badisp)
+    vsps <- tolower(datsus$badas)
     vsps <- gsub("[[:punct:]]", "", vsps)
     
     # Now, let's get the isps. 
     locations <- geolocate(IP)
     
+    # We're using the AS column, but not some ISPs have multiple ASs, wo we're removing that number
+    locations$asc <- sub(".*? (.+)", "\\1", locations$as)
+    vsps <- sub(".*? (.+)", "\\1", vsps)
+    
     # Cleaning that up too, so it's lowercase, and missing punctuation. 
-    locations$isp <- tolower(locations$isp)
-    locations$isp <- gsub("[[:punct:]]", "", locations$isp)
+    locations$asc <- tolower(locations$asc)
+    locations$asc <- gsub("[[:punct:]]", "", locations$asc)
     
     # Now, returning 1 or 0. 
-    bot.susp <- ifelse(!is.na(locations$isp), ifelse(pmatch(locations$isp, vsps, nomatch = 0, duplicates.ok = TRUE) > 0, bot.susp + 1,  bot.susp), bot.susp)
+    bot.susp <- ifelse(!is.na(locations$asc), ifelse(pmatch(locations$asc, vsps, nomatch = 0, duplicates.ok = TRUE) > 0, bot.susp + 1,  bot.susp), bot.susp)
   } 
   
   # this sets the threshold for a bot warning, depending if they entered the IP argument or not. 
   if(missing(IP)) {
-    outputs <- ifelse(bot.susp == 1, 1, 0)
+    outputs <- ifelse(bot.susp >= 1, 1, 0)
   } else if(missing(Latitude)) {
-    outputs <- ifelse(bot.susp == 1, 1, 0)
+    outputs <- ifelse(bot.susp >= 1, 1, 0)
   }  else{
     outputs <- ifelse(bot.susp >= 1, 1, 0)
   }  
